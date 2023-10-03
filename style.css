@@ -1,0 +1,141 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Montserrat;
+  }
+
+  body {
+    background-color: #009AD0;
+  }
+
+  .game-wrapper{
+    box-sizing: content-box;
+    position: absolute;
+    width: 550px;
+    padding: 30px 30px;
+    background-color: aliceblue;
+    margin: 0 auto;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
+
+  .game-container{
+    position: relative;
+    display: grid;
+    gap: 10px;
+    width: 100%;
+    margin-left: 7px;
+  }
+
+.count-and-time-conteiner{
+  text-align: right;
+}
+
+.count-and-time-conteiner span{
+  color: brown;
+}
+
+  #count{
+    text-align: center;
+  }
+
+  .img-wrapper{
+    position: relative;
+    width: 120px;
+    height: 120px;
+    cursor: pointer;
+  }
+
+  .img-before-click,
+  .img-after-click{
+position: absolute;
+width: 100%;
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+color: rgb(0, 0, 0);
+font-size: 25px;
+border: 3px solid #2B2B2B;
+transition: transform 1s ease-out;
+backface-visibility: hidden;
+  }
+
+  .img-before-click{
+background-color: #FDDA1C;
+  }
+
+  .img-after-click{
+  transform: rotateY(180deg);
+  }
+
+.image{
+  width: 120px;
+  height: 120px;
+}
+
+  .img-wrapper.flipped .img-before-click{
+    transform: rotateY(180deg);
+  }
+
+  .img-wrapper.flipped .img-after-click{
+    transform: rotateY(0deg);
+  }
+
+  .result-container{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+top: 0;
+  }
+
+  button{
+    border: none;
+    border-radius: 5px;
+    padding: 15px 15px;
+    cursor: pointer;
+  }
+
+  #new{
+    background-color: aqua;
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+#stop{
+    display: none;
+    margin: 0 auto;
+    background-color: rgb(255, 0, 0);
+    color: aliceblue;
+    font-weight: semibold;
+    padding: 15px;
+}
+
+.count-and-time-conteiner button{
+  font-size: 55px;
+}
+
+.hide{
+  display: none;
+}
+
+#result-for-game{
+  text-align: center;
+}
+
+#result-for-game h2{
+  font-size: 50px;
+  color: aliceblue;
+}
+
+#result-for-game h3{
+  font-size: 30px;
+  color: #FA1113;
+}
