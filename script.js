@@ -1,0 +1,159 @@
+const count = document.getElementById('count');
+const timeValue = document.getElementById('time');
+const startBtn =document.getElementById('new');
+const stopBtn = document.getElementById('stop');
+const gameContainer = document.querySelector('.game-container');
+const result = document.getElementById('result-for-game');
+const resultContainer = document.querySelector('.result-container');
+
+let imgs;
+let intervalTime;
+let firstimage = false;
+let secondimage = false;
+
+const values = [
+    {name:"Group1", image:"./assets/images/Group1.jpg"},
+    {name:"Group2", image:"./assets/images/Group2.jpg"},
+    {name:"Group3", image:"./assets/images/Group3.jpg"},
+    {name:"Group4", image:"./assets/images/Group4.jpg"},
+    {name:"Group5", image:"./assets/images/Group5.jpg"},
+    {name:"Group6", image:"./assets/images/Group6.jpg"},
+    {name:"Group7", image:"./assets/images/Group7.jpg"},
+    {name:"Group8", image:"./assets/images/Group8.jpg"},
+];
+
+let countMoves = 0;
+winerCount = 0;
+
+let second =0;
+minute=0;
+
+const generatorOfTime = () =>{
+    second += 1;
+    if(second >= 60){
+        minute += 1;
+        second = 0;
+    }
+
+    let secValue = second < 10 ? `0${second}` : second;
+    let minValue = minute < 10 ? `0${minute}` : minute;
+    timeValue.innerHTML =`<span>Ваше время: </span>${minValue}:${secValue}`
+
+};
+
+const counter = () =>{
+    countMoves += 1;
+    count.innerHTML = `<span>Ваши ходы: ${countMoves} </span>`;
+};
+
+const generetorImage = (size = 4) => {
+    let imgArray = [...values];
+    let imgValue = [];
+    size = (size*size)/2;
+    for (let k=0; k<size; k++){
+const imgRandom = Math.floor(Math.random()*imgArray.length);
+imgValue.push(imgArray[imgRandom]);
+imgArray.splice(imgRandom, 1);
+    }
+    return imgValue;
+};
+
+const gridGenerator = (imgValue, size = 4)=> {
+    gameContainer.innerHTML="";
+    imgValue = [...imgValue, ...imgValue];
+    imgValue.sort(() => Math.random() - 0.5);
+    for (let k=0; k < size*size; k++){
+        gameContainer.innerHTML +=
+        `<div class="img-wrapper" data-image-value="${imgValue[k].name}">
+        <div class="img-before-click">RSS</div>
+        <div class="img-after-click">
+        <img src="${imgValue[k].image}" class="image"/></div>
+     </div>`;
+    }
+
+    gameContainer.style.gridTemplateColumns = `repeat(${size},auto)`;
+  
+    imgs = document.querySelectorAll(".img-wrapper");
+    imgs.forEach((img) => {
+      img.addEventListener("click", () => {
+        if (!img.classList.contains("matched")) {
+          img.classList.add("flipped");
+           if (!firstimage) {
+            firstimage = img;
+           firstimageValue = img.getAttribute("data-image-value");
+          
+        } else {
+            counter();
+          
+            secondimage = img;
+            let secondimageValue = img.getAttribute("data-image-value");
+            if (firstimageValue == secondimageValue) {
+            
+              firstimage.classList.add("matched");
+              secondimage.classList.add("matched");
+              
+              firstimage = false;
+              
+              winerCount += 1;
+            
+              if (winerCount == Math.floor(imgValue.length / 2)) {
+                result.innerHTML = `<h2>Вы победитель!!!</h2>
+              <h3>Ваши ходы: ${countMoves}</h3>`;
+                stopAllGame();
+              }
+            } else {
+              
+              let [first, second] = [firstimage, secondimage];
+              firstimage = false;
+              secondimage = false;
+              let delay = setTimeout(() => {
+                first.classList.remove("flipped");
+                second.classList.remove("flipped");
+              }, 950);
+            }
+          }
+        }
+      });
+    });
+
+};
+
+startBtn.addEventListener("click", () => {
+    countMoves = 0;
+    time = 0;
+    /*second = 0;
+    minute = 0;*/
+    
+    resultContainer.classList.add("hide");
+    stopBtn.classList.remove("hide");
+    startBtn.classList.add("hide");
+    
+    intervalTime = setInterval(generatorOfTime, 1050);
+    
+    count.innerHTML = `<span>Ваши ходы: ${countMoves}</span> `;
+    init();
+  });
+  
+  stopBtn.addEventListener("click", (stopAllGame = () => {
+    resultContainer.classList.remove("hide");
+      stopBtn.classList.add("hide");
+      startBtn.classList.remove("hide");
+      clearInterval(intervalTime);
+      countMoves = 0;
+    second = 0;
+    minute = 0;
+
+    /*result.innerHTML = `<h2>Вы остановили игру!</h2>
+              <h3>Ваши ходы: ${countMoves}</h3>`;*/
+    })
+  );
+
+  const init = () => {
+    result.innerText = "";
+    winerCount = 0;
+    let imgValue = generetorImage();
+    console.log(imgValue);
+    gridGenerator(imgValue);
+  };
+
+  init();
