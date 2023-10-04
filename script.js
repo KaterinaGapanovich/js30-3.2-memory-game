@@ -46,11 +46,11 @@ const counter = () =>{
     count.innerHTML = `<span>Ваши ходы: ${countMoves} </span>`;
 };
 
-const generetorImage = (size = 4) => {
+const generetorImage = (scale = 4) => {
     let imgArray = [...values];
     let imgValue = [];
-    size = (size*size)/2;
-    for (let k=0; k<size; k++){
+    scale = (scale*scale)/2;
+    for (let k=0; k<scale; k++){
 const imgRandom = Math.floor(Math.random()*imgArray.length);
 imgValue.push(imgArray[imgRandom]);
 imgArray.splice(imgRandom, 1);
@@ -58,11 +58,11 @@ imgArray.splice(imgRandom, 1);
     return imgValue;
 };
 
-const gridGenerator = (imgValue, size = 4)=> {
+const gridGenerator = (imgValue, scale = 4)=> {
     gameContainer.innerHTML="";
     imgValue = [...imgValue, ...imgValue];
     imgValue.sort(() => Math.random() - 0.5);
-    for (let k=0; k < size*size; k++){
+    for (let k=0; k < scale*scale; k++){
         gameContainer.innerHTML +=
         `<div class="img-wrapper" data-image-value="${imgValue[k].name}">
         <div class="img-before-click">RSS</div>
@@ -71,13 +71,13 @@ const gridGenerator = (imgValue, size = 4)=> {
      </div>`;
     }
 
-    gameContainer.style.gridTemplateColumns = `repeat(${size},auto)`;
+    gameContainer.style.gridTemplateColumns = `repeat(${scale},auto)`;
   
     imgs = document.querySelectorAll(".img-wrapper");
     imgs.forEach((img) => {
       img.addEventListener("click", () => {
-        if (!img.classList.contains("matched")) {
-          img.classList.add("flipped");
+        if (!img.classList.contains("treehouse")) {
+          img.classList.add("turnaround");
            if (!firstimage) {
             firstimage = img;
            firstimageValue = img.getAttribute("data-image-value");
@@ -89,15 +89,15 @@ const gridGenerator = (imgValue, size = 4)=> {
             let secondimageValue = img.getAttribute("data-image-value");
             if (firstimageValue == secondimageValue) {
             
-              firstimage.classList.add("matched");
-              secondimage.classList.add("matched");
+              firstimage.classList.add("treehouse");
+              secondimage.classList.add("treehouse");
               
               firstimage = false;
               
               winerCount += 1;
             
               if (winerCount == Math.floor(imgValue.length / 2)) {
-                result.innerHTML = `<h2>Вы победитель!!!</h2>
+                result.innerHTML = `<h2>Поздравляю, Вы победили!</h2>
               <h3>Ваши ходы: ${countMoves}</h3>`;
                 stopAllGame();
               }
@@ -107,8 +107,8 @@ const gridGenerator = (imgValue, size = 4)=> {
               firstimage = false;
               secondimage = false;
               let delay = setTimeout(() => {
-                first.classList.remove("flipped");
-                second.classList.remove("flipped");
+                first.classList.remove("turnaround");
+                second.classList.remove("turnaround");
               }, 950);
             }
           }
@@ -124,20 +124,21 @@ startBtn.addEventListener("click", () => {
     /*second = 0;
     minute = 0;*/
     
-    resultContainer.classList.add("hide");
-    stopBtn.classList.remove("hide");
-    startBtn.classList.add("hide");
+    resultContainer.classList.add("invisible");
+    stopBtn.classList.remove("invisible");
+    startBtn.classList.add("invisible");
     
     intervalTime = setInterval(generatorOfTime, 1050);
     
     count.innerHTML = `<span>Ваши ходы: ${countMoves}</span> `;
+    
     init();
   });
   
   stopBtn.addEventListener("click", (stopAllGame = () => {
-    resultContainer.classList.remove("hide");
-      stopBtn.classList.add("hide");
-      startBtn.classList.remove("hide");
+    resultContainer.classList.remove("invisible");
+      stopBtn.classList.add("invisible");
+      startBtn.classList.remove("invisible");
       clearInterval(intervalTime);
       countMoves = 0;
     second = 0;

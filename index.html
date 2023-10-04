@@ -4,24 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>memory-game</title>
+    <link rel="shortcut icon" href="./assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <header>
+        <h1>MEMORY GAME</h1>
+    </header>
     
     <div class="game-wrapper">
         <div class="count-and-time-conteiner">
-            <div id="count" ></div>
-            <div id="time" ></div>
+           
+                <div id="count" >Ваши ходы:</div>
+           
+           
+                <div id="time" >Ваше время:</div>
+            
         </div>
      
         <div class="game-container"></div>
-        <button id="stop" class="hide">Остановить игру</button>
+        <button id="stop" class="invisible">Остановить игру</button>
     </div>
 
     <div class="result-container">
         <p id="result-for-game">Результаты</p>
-        <button id="new">Начать игру <br> memory-game</button>
+        <button id="new">Начать игру</button>
     </div>
+
+    <footer>
+        <div class="footer-part">
+            <a class="my-github" href="https://github.com/KaterinaGapanovich">Git-Hub KaterinaG.</a>
+            <p>2023</p>
+            <a class="rss" href="https://rs.school/js-stage0/">
+                <img src="./assets/icons/rss.svg" alt="rsschool" width="100px">
+            </a>
+        </div>
+    </footer>
 
     <script src="./script.js"></script>
 </body>
