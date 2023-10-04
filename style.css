@@ -168,6 +168,12 @@ footer{
   text-decoration: none;
 }
 
+.my-github:hover{
+  color: white;
+  cursor: pointer;
+}
+
 .rss{
   text-decoration: none;
+  cursor: pointer;
 }
