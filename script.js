@@ -6,6 +6,9 @@ const gameContainer = document.querySelector('.game-container');
 const result = document.getElementById('result-for-game');
 const resultContainer = document.querySelector('.result-container');
 
+const audioplayer = document.querySelector('audio');
+const audio = new Audio();
+
 let imgs;
 let intervalTime;
 let firstimage = false;
@@ -99,6 +102,12 @@ const gridGenerator = (imgValue, scale = 4)=> {
               if (winerCount == Math.floor(imgValue.length / 2)) {
                 result.innerHTML = `<h2>Поздравляю, Вы победили!</h2>
               <h3>Ваши ходы: ${countMoves}</h3>`;
+
+              audio.src = './assets/Queen_We_Are_The_Champions.mp3';
+    audioplayer.currentTime = 0;
+    audioplayer.play();
+
+
                 stopAllGame();
               }
             } else {
